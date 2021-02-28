@@ -2,7 +2,7 @@ import datetime
 
 from django.utils import timezone
 from django.conf import settings
-from rest_framework imoprt serializers
+from rest_framework import serializers
 
 from tasks.models import Task
 
@@ -30,13 +30,13 @@ class TaskSerializer(serializers.ModelSerializer):
         date = self.initial_data['date']
         date = datetime.date.fromisoformat(date)
         date = datetime.datetime.combine(date, value, tzinfo=tz)
-        if date <= timezone.now:
+        if date <= timezone.now():
             raise serializers.ValidationError
         return value
 
 
     class UserSerializer(serializers.ModelSerializer):
-        tasks = seiralizers.PrimaryKeyRelatedField(
+        tasks = serializers.PrimaryKeyRelatedField(
             many=True,
             queryset=Task.objects.all()
         )

@@ -1,17 +1,17 @@
 from django.db import models
-from django.conf.settings import AUTH_USER_MODEL
+from django.conf import settings
 
 
 class Task(models.Model):
     owner = models.ForeignKey(
-        AUTH_USER_MODEL,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='tasks'
     )
     to_do = models.TextField()
     date = models.DateField()
     time = models.TimeField()
-    done = BooleanField(default=False)
+    done = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['date', 'time']
